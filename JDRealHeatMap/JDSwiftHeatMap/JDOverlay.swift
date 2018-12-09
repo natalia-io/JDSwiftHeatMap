@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 /**
-    這個類別只需要知道MapRect層面，不需要知道CGRect層面的事
+ 這個類別只需要知道MapRect層面，不需要知道CGRect層面的事
  */
 
 class JDHeatOverlay:NSObject, MKOverlay
@@ -20,8 +20,8 @@ class JDHeatOverlay:NSObject, MKOverlay
     /* Overlay的中心 */
     var coordinate: CLLocationCoordinate2D
     {
-        let midMKPoint = MKMapPoint(x: MKMapRectGetMidX(boundingMapRect), y: MKMapRectGetMidY(boundingMapRect))
-        return MKCoordinateForMapPoint(midMKPoint)
+        let midMKPoint = MKMapPoint(x: boundingMapRect.midX, y: boundingMapRect.midY)
+        return midMKPoint.coordinate
     }
     /* Overlay涵蓋的範圍 */
     var boundingMapRect: MKMapRect
@@ -70,16 +70,16 @@ class JDHeatRadiusPointOverlay:JDHeatOverlay
         if let BeenCaculatedMapRect = CaculatedMapRect
         {
             //Not the First Time
-            MaxX = MKMapRectGetMaxX(BeenCaculatedMapRect)
-            MaxY = MKMapRectGetMaxY(BeenCaculatedMapRect)
-            MinX = MKMapRectGetMinX(BeenCaculatedMapRect)
-            MinY = MKMapRectGetMinY(BeenCaculatedMapRect)
+            MaxX = BeenCaculatedMapRect.maxX
+            MaxY = BeenCaculatedMapRect.maxY
+            MinX = BeenCaculatedMapRect.minX
+            MinY = BeenCaculatedMapRect.minY
             //
             let heatmaprect = newPoint.MapRect
-            let tMaxX = MKMapRectGetMaxX(heatmaprect)
-            let tMaxY = MKMapRectGetMaxY(heatmaprect)
-            let tMinX = MKMapRectGetMinX(heatmaprect)
-            let tMinY = MKMapRectGetMinY(heatmaprect)
+            let tMaxX = heatmaprect.maxX
+            let tMaxY = heatmaprect.maxY
+            let tMinX = heatmaprect.minX
+            let tMinY = heatmaprect.minY
             MaxX = (tMaxX > MaxX) ? tMaxX : MaxX
             MaxY = (tMaxY > MaxY) ? tMaxY : MaxY
             MinX = (tMinX < MinX) ? tMinX : MinX
@@ -89,10 +89,10 @@ class JDHeatRadiusPointOverlay:JDHeatOverlay
         {
             //First Time Caculate Fitst Point Only
             let heatmaprect = newPoint.MapRect
-            MaxX = MKMapRectGetMaxX(heatmaprect)
-            MaxY = MKMapRectGetMaxY(heatmaprect)
-            MinX = MKMapRectGetMinX(heatmaprect)
-            MinY = MKMapRectGetMinY(heatmaprect)
+            MaxX = heatmaprect.maxX
+            MaxY = heatmaprect.maxY
+            MinX = heatmaprect.minX
+            MinY = heatmaprect.minY
         }
         let rect = MKMapRectMake(MinX, MinY, MaxX - MinX, MaxY - MinY)
         CaculatedMapRect = rect
@@ -117,16 +117,16 @@ class JDHeatFlatPointOverlay:JDHeatOverlay
         if let BeenCaculatedMapRect = CaculatedMapRect
         {
             //Not the First Time
-            MaxX = MKMapRectGetMaxX(BeenCaculatedMapRect)
-            MaxY = MKMapRectGetMaxY(BeenCaculatedMapRect)
-            MinX = MKMapRectGetMinX(BeenCaculatedMapRect)
-            MinY = MKMapRectGetMinY(BeenCaculatedMapRect)
+            MaxX = BeenCaculatedMapRect.maxX
+            MaxY = BeenCaculatedMapRect.maxY
+            MinX = BeenCaculatedMapRect.minX
+            MinY = BeenCaculatedMapRect.minY
             //
             let heatmaprect = newPoint.MapRect
-            let tMaxX = MKMapRectGetMaxX(heatmaprect)
-            let tMaxY = MKMapRectGetMaxY(heatmaprect)
-            let tMinX = MKMapRectGetMinX(heatmaprect)
-            let tMinY = MKMapRectGetMinY(heatmaprect)
+            let tMaxX = heatmaprect.maxX
+            let tMaxY = heatmaprect.maxY
+            let tMinX = heatmaprect.minX
+            let tMinY = heatmaprect.minY
             MaxX = (tMaxX > MaxX) ? tMaxX : MaxX
             MaxY = (tMaxY > MaxY) ? tMaxY : MaxY
             MinX = (tMinX < MinX) ? tMinX : MinX
@@ -136,10 +136,10 @@ class JDHeatFlatPointOverlay:JDHeatOverlay
         {
             //First Time Caculate Fitst Point Only
             let heatmaprect = newPoint.MapRect
-            MaxX = MKMapRectGetMaxX(heatmaprect)
-            MaxY = MKMapRectGetMaxY(heatmaprect)
-            MinX = MKMapRectGetMinX(heatmaprect)
-            MinY = MKMapRectGetMinY(heatmaprect)
+            MaxX = heatmaprect.maxX
+            MaxY = heatmaprect.maxY
+            MinX = heatmaprect.minX
+            MinY = heatmaprect.minY
         }
         let rect = MKMapRectMake(MinX, MinY, MaxX - MinX, MaxY - MinY)
         CaculatedMapRect = rect
